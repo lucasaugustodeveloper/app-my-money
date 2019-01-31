@@ -8,7 +8,7 @@ export default props => (
       </span>
       <span className="logo-lg">
         <span className="fa fa-money" />
-        <strong> My</strong> M
+        <strong> My</strong> Money
       </span>
     </a>
 
