@@ -1,9 +1,7 @@
-import axios from 'axios';
-
-const BASE_URL = 'http://localhost:3303/api/billingCycles';
+import api from '../services/api';
 
 export function getList() {
-  const request = axios.get(BASE_URL);
+  const request = api.get('/billingCycles');
 
   return {
     type: 'BILLING_CYCLES_FETCHED',
