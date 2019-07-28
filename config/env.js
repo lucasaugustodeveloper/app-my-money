@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const dotenv = require('dotenv');
 
-module.exports = () => {
+const getEnvs = () => {
   const env = dotenv.config().parsed;
 
   const envKeys = Object.keys(env).reduce((prev, next) => {
@@ -13,3 +13,7 @@ module.exports = () => {
     plugins: [new webpack.DefinePlugin(envKeys)]
   };
 };
+
+console.log(getEnvs().plugins);
+
+module.exports = getEnvs;
