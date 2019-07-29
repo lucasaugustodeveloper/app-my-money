@@ -5,7 +5,7 @@ export default props => (
     <strong>
       Copyright &copy; 2019 &nbsp;
       <a href="https://github.com/laugustofrontend" target="_blank">
-        laugutofrontend {process.env.BASE_URL}
+        laugutofrontend
       </a>
     </strong>
   </footer>
