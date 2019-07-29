@@ -1,12 +1,7 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
-const dotenv = require('dotenv').config().parsed;
-
-const envKeys = Object.keys(dotenv).reduce((prev, next) => {
-  prev[`process.env.${next}`] = JSON.stringify(dotenv[next]);
-  return prev;
-}, {});
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/index.jsx',
@@ -33,7 +28,7 @@ module.exports = {
       'window.jQuery': 'jquery'
     }),
     new ExtractTextPlugin('app.css'),
-    new webpack.DefinePlugin(envKeys)
+    new Dotenv()
   ],
   module: {
     loaders: [
