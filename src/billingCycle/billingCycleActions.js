@@ -24,10 +24,10 @@ export function init() {
   ];
 }
 
-export function create(values) {
+function submit(values, method) {
   return dispatch => {
-    api
-      .post('/billingCycles', values)
+    const id = values._id ? values._id : '';
+    api[method](`/billingCycles/${id}`, values)
       .then(res => {
         toastr.success('Sucess', 'Operação realiza com sucesso!');
         dispatch(init());
@@ -36,6 +36,14 @@ export function create(values) {
         e.response.data.errors.forEach(error => toastr.error('Erro', error));
       });
   };
+}
+
+export function create(values) {
+  return submit(values, 'post');
+}
+
+export function update(values) {
+  return submit(values, 'put');
 }
 
 export function showUpdate(billingCycle) {
