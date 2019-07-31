@@ -1,3 +1,7 @@
+import { toastr } from 'react-redux-toastr';
+import { reset as resetForm } from 'redux-form';
+import { showTabs, selectTab } from '../common/tab/tabActions';
+
 import api from '../services/api';
 
 export function getList() {
@@ -7,4 +11,27 @@ export function getList() {
     type: 'BILLING_CYCLES_FETCHED',
     payload: request
   };
+}
+
+export function create(values) {
+  return dispatch => {
+    api
+      .post('/billingCycles', values)
+      .then(res => {
+        toastr.success('Sucess', 'Operação realiza com sucesso!');
+        dispatch([
+          resetForm('billingCycleForm'),
+          getList(),
+          selectTab('tabList'),
+          showTabs('tabList', 'tabCreate')
+        ]);
+      })
+      .catch(e => {
+        e.response.data.errors.forEach(error => toastr.error('Erro', error));
+      });
+  };
+}
+
+export function showUpdate(billingCycle) {
+  return [showTabs('tabUpdate'), selectTab('tabUpdate')];
 }
