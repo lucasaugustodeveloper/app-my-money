@@ -46,10 +46,14 @@ export function update(values) {
   return submit(values, 'put');
 }
 
-export function showUpdate(billingCycle) {
+export function remove(values) {
+  return submit(values, 'delete');
+}
+
+export function showTab(billingCycle, optionTab) {
   return [
-    showTabs('tabUpdate'),
-    selectTab('tabUpdate'),
+    showTabs(`${optionTab}`),
+    selectTab(`${optionTab}`),
     initialize('billingCycleForm', billingCycle)
   ];
 }
