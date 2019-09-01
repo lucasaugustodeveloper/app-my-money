@@ -4,7 +4,9 @@ import { showTabs, selectTab } from '../common/tab/tabActions';
 
 import api from '../services/api';
 
-const INITIAL_VALUES = [];
+const INITIAL_VALUES = {
+  credits: [{}]
+};
 
 export function getList() {
   const request = api.get('/billingCycles');
