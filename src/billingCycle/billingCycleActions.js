@@ -5,7 +5,8 @@ import { showTabs, selectTab } from '../common/tab/tabActions';
 import api from '../services/api';
 
 const INITIAL_VALUES = {
-  credits: [{}]
+  credits: [{}],
+  debts: [{}]
 };
 
 export function getList() {

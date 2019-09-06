@@ -5,11 +5,12 @@ import { reduxForm, Field, formValueSelector } from 'redux-form';
 
 import { init } from './billingCycleActions';
 import LabelAndInput from '../common/form/LabelAndInput';
-import CreditList from './creditList';
+import ItemList from './itemList';
 
 class BillingCycleForm extends Component {
   render() {
-    const { handleSubmit, readOnly, credits } = this.props;
+    const { handleSubmit, readOnly, credits, debts } = this.props;
+    console.log(debts);
 
     return (
       <form onSubmit={handleSubmit}>
@@ -41,7 +42,22 @@ class BillingCycleForm extends Component {
             readOnly={readOnly}
           />
 
-          <CreditList cols="12 6" readOnly={readOnly} list={credits} />
+          <ItemList
+            legend="Créditos"
+            field="credits"
+            cols="12 6"
+            readOnly={readOnly}
+            list={credits}
+          />
+
+          <ItemList
+            legend="Débitos"
+            cols="12 6"
+            readOnly={readOnly}
+            field="debts"
+            list={debts}
+            showStatus
+          />
         </div>
 
         <div className="box-footer">
@@ -62,7 +78,10 @@ BillingCycleForm = reduxForm({ form: 'billingCycleForm', destroyOnUnmount: false
 );
 const selector = formValueSelector('billingCycleForm');
 
-const mapStateToProps = state => ({ credits: selector(state, 'credits') });
+const mapStateToProps = state => ({
+  credits: selector(state, 'credits'),
+  debts: selector(state, 'debts')
+});
 const mapDispatchToProps = dispatch => bindActionCreators({ init }, dispatch);
 
 export default connect(
