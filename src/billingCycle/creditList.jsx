@@ -1,26 +1,59 @@
 import React, { Component } from 'react';
-import { Field } from 'redux-form';
+import { Field, arrayInsert, arrayRemove } from 'redux-form';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Grid from '../common/layout/grid';
 import Input from '../common/form/input';
 
 class CreditList extends Component {
-  renderRows() {
-    const list = this.props.list || [];
+  add(index, item = {}) {
+    if (!this.props.readOnly) {
+      this.props.arrayInsert('billingCycleForm', 'credits', index, item);
+    }
+  }
 
-    return list.map((item, index) => (
+  remove(index) {
+    if (!this.props.readOnly && this.props.list.length > 1) {
+      this.props.arrayRemove('billingCycleForm', 'credits', index);
+    }
+  }
+
+  renderRows() {
+    return this.props.list.map((item, index) => (
       <tr key={index}>
         <td>
-          <Field name={`credits[${index}].name`} component={Input}
-                 placeholder='Informe o nome' readOnly={this.props.readOnly}
+          <Field
+            name={`credits[${index}].name`}
+            component={Input}
+            placeholder="Informe o nome"
+            readOnly={this.props.readOnly}
           />
         </td>
         <td>
-          <Field name={`credits[${index}].value`} component={Input}
-                 placeholder='Informe o valor' readOnly={this.props.readOnly}
+          <Field
+            name={`credits[${index}].value`}
+            component={Input}
+            placeholder="Informe o valor"
+            readOnly={this.props.readOnly}
+            type="number"
           />
         </td>
-        <td>col 3</td>
+        <td className="table-actions">
+          <button className="btn btn-success" type="button" onClick={() => this.add(index + 1)}>
+            <i className="fa fa-plus" />
+          </button>
+          <button
+            className="btn btn-warning"
+            type="button"
+            onClick={() => this.add(index + 1, item)}
+          >
+            <i className="fa fa-clone" />
+          </button>
+          <button className="btn btn-danger" type="button" onClick={() => this.remove(index)}>
+            <i className="fa fa-trash-o" />
+          </button>
+        </td>
       </tr>
     ));
   }
@@ -33,16 +66,14 @@ class CreditList extends Component {
 
           <table className="table">
             <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Valor</th>
-              <th>Ações</th>
-            </tr>
+              <tr>
+                <th>Nome</th>
+                <th>Valor</th>
+                <th className="table-actions">Ações</th>
+              </tr>
             </thead>
 
-            <tbody>
-            {this.renderRows()}
-            </tbody>
+            <tbody>{this.renderRows()}</tbody>
           </table>
         </fieldset>
       </Grid>
@@ -50,4 +81,9 @@ class CreditList extends Component {
   }
 }
 
-export default CreditList;
+const mapDispatchToProps = dispatch => bindActionCreators({ arrayInsert, arrayRemove }, dispatch);
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(CreditList);
