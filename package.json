@@ -41,7 +41,7 @@
     "style-loader": "0.13.1",
     "webpack": "4.0.0",
     "webpack-dev-server": "3.11.0",
-    "snyk": "^1.521.0"
+    "snyk": "^1.1150.0"
   },
   "devDependencies": {
     "eslint": "^5.12.0",
