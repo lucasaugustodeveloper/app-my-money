@@ -39,7 +39,7 @@
     "redux-promise": "0.5.3",
     "redux-thunk": "2.1.0",
     "style-loader": "0.13.1",
-    "webpack": "4.0.0",
+    "webpack": "4.47.0",
     "webpack-dev-server": "3.11.0",
     "snyk": "^1.1187.0"
   },
